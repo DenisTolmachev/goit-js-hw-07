@@ -41,12 +41,22 @@ function clickOpenModal(evt) {
     />
 `,
     {
-      onShow: (instance) => {},
+      onShow: () => {
+        window.addEventListener("keydown", escCloseModal);
+      },
     },
     {
-      onClose: (instance) => {},
+      onClose: () => {
+        window.removeEventListener("keydown", escCloseModal);
+      },
     }
   );
 
   instance.show();
+}
+
+function escCloseModal(evt) {
+  if (evt.kode === "Escape") {
+    instance.close();
+  }
 }
