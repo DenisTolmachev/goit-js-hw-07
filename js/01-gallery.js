@@ -39,24 +39,14 @@ function clickOpenModal(evt) {
       class="gallery__image"
       src="${evt.target.dataset.source}"
     />
-`,
-    {
-      onShow: () => {
-        window.addEventListener("keydown", escCloseModal);
-      },
-    },
-    {
-      onClose: () => {
-        window.removeEventListener("keydown", escCloseModal);
-      },
-    }
+`
   );
 
-  instance.show();
-}
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      instance.close();
+    }
+  });
 
-function escCloseModal(evt) {
-  if (evt.kode === "Escape") {
-    instance.close();
-  }
+  instance.show();
 }
