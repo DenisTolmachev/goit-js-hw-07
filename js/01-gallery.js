@@ -26,13 +26,15 @@ galleryContainer.insertAdjacentHTML("beforeend", galleryItemsMarkup);
 
 galleryContainer.addEventListener("click", clickOpenModal);
 
+let instance = null;
+
 function clickOpenModal(evt) {
   evt.preventDefault();
   if (!evt.target.classList.contains("gallery__image")) {
     return;
   }
 
-  const instance = basicLightbox.create(
+  instance = basicLightbox.create(
     `
 	<img
       class="gallery__image"
@@ -41,11 +43,11 @@ function clickOpenModal(evt) {
 `
   );
 
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      instance.close();
-    }
-  });
-
   instance.show();
 }
+
+window.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && instance) {
+    instance.close();
+  }
+});
